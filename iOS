@@ -1,0 +1,57 @@
+import UIKit
+
+class AvailabilityCheckViewController: UIViewController {
+ var bookFound = Book()
+    var isBook = false
+    var bookArray = booksArray
+    
+    
+    @IBOutlet weak var userNameOutlet: UITextField!
+    
+    
+    @IBOutlet weak var bookIDOutlet: UITextField!
+    
+    
+    @IBOutlet weak var checkavilabilityOutlet: UIButton!
+    
+    @IBAction func checkoutBookAction(_ sender: Any) {
+        let enteredID = bookIDOutlet.text!
+        for book in bookArray{
+            if
+                enteredID == book.bookId {
+                bookFound = book
+                isBook = true
+                imageOutlet.isHidden = false
+                checkout.isHidden = false
+                imageOutlet.image = UIImage(named: bookFound.bookImage)
+                statusOutlet.text = "Book with ID \(enteredID) Found "
+            }
+            
+                
+        }
+    }
+    
+    
+    @IBOutlet weak var checkout: UIButton!
+    
+    @IBOutlet weak var imageOutlet: UIImageView!
+    @IBOutlet weak var statusOutlet: UILabel!
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let transition = segue.identifier
+        if transition == "checkoutSegue"{
+            let destination = segue.destination as! CheckoutConfirmationViewController
+            if isBook {
+                destination.bookobj = bookFound
+                destination.name = userNameOutlet.text!
+                //destination.bookfoundLabel.text = userNameOutlet.text!
+            }
+                    }
+            
+    }
+
+}
